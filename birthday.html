@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        /* Responsive Variables */
+        :root {
+            --primary-pink: #ff477e;
+            --soft-bg: #fff0f3;
+            --text-dark: #2d3436;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--soft-bg);
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Container that adjusts size based on screen */
+        .main-container {
+            width: 100%;
+            max-width: 800px; /* Laptop width */
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .hero-section {
+            background: var(--primary-pink);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .media-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Responsive Media handling */
+        img, video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .wishes-section {
+            padding: 20px;
+            background: #fffafa;
+        }
+
+        .wish-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary-pink);
+        }
+
+        .sender-name {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--primary-pink);
+        }
+
+        /* Adjustments for Laptop/Tablet */
+        @media (min-width: 768px) {
+            .hero-section { padding: 60px 20px; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="hero-section">
+            <h1>✨ Happy Birthday! ✨</h1>
+            <p>A special day for a special person</p>
+        </div>
+
+        <div class="media-grid">
+            <img src="my_photo.jpg" alt="Birthday Memory">
+
+            <video controls>
+                <source src="my_video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="wishes-section">
+            <h2 style="text-align: center;">Warm Wishes</h2>
+            
+            <div class="wish-card">
+                "May your year be as bright as your smile!"
+                <span class="sender-name">— From Rahul & Priya</span>
+            </div>
+
+            <div class="wish-card">
+                "Keep shining and reaching for the stars."
+                <span class="sender-name">— From Sameer</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
