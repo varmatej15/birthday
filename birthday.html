@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Responsive Variables */
         :root {
-            --primary-pink: #ff477e;
+            --primary-green: #2ecc71;
+            --parrot-green: #2ecc71;
             --soft-bg: #fff0f3;
             --text-dark: #2d3436;
         }
@@ -19,7 +21,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--soft-bg);
             color: var(--text-dark);
             display: flex;
@@ -48,22 +50,39 @@
             background: #000;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             z-index: 1000;
             margin: 0;
             padding: 0;
         }
 
+        /* Exit button from fullscreen */
+        .exit-slideshow {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1005;
+            transition: 0.3s ease;
+        }
+
+        .exit-slideshow:hover {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
         .slideshow-container {
             position: relative;
             width: 100%;
-            height: 100%;
+            flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
             flex-direction: column;
+            background: #000;
+            margin-top: 80px; /* Space for exit button and text */
         }
 
         .slide {
@@ -85,9 +104,10 @@
 
         /* Welcome slide styling */
         .slide.welcome-slide {
-            background: linear-gradient(135deg, #ff477e, #ff6b9d);
+            background: linear-gradient(135deg, var(--primary-green), #27ae60);
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         .welcome-content {
@@ -96,16 +116,20 @@
         }
 
         .welcome-content h1 {
-            font-size: 4rem;
+            font-family: 'Caveat', cursive;
+            font-size: 5rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
             animation: slideDown 1s ease-out;
+            font-weight: 700;
         }
 
         .welcome-content p {
-            font-size: 2rem;
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
             animation: slideUp 1s ease-out;
+            font-weight: 700;
         }
 
         /* Image slide styling */
@@ -128,19 +152,24 @@
             display: block;
         }
 
-        /* Text at TOP of slides */
+        /* Text at TOP of slides - NO OVERLAP */
         .slide-text-top {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.6);
             color: white;
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
-            z-index: 5;
+            z-index: 1001;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide.active .slide-text-top {
@@ -148,16 +177,21 @@
         }
 
         .slide-text-top h2 {
-            font-size: 2.5rem;
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
-            margin-bottom: 10px;
+            margin: 0;
             animation: slideDown 1s ease-out;
+            font-weight: 700;
         }
 
         .slide-text-top p {
-            font-size: 1.3rem;
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
             animation: slideDown 1s ease-out 0.2s both;
+            margin: 0;
+            font-weight: 700;
         }
 
         @keyframes slideDown {
@@ -190,7 +224,7 @@
         /* Slideshow controls */
         .prev, .next {
             cursor: pointer;
-            position: absolute;
+            position: fixed;
             top: 50%;
             transform: translateY(-50%);
             width: auto;
@@ -201,7 +235,7 @@
             font-size: 28px;
             transition: 0.3s ease;
             user-select: none;
-            z-index: 10;
+            z-index: 1002;
             border: none;
             height: 60px;
             display: flex;
@@ -223,12 +257,12 @@
 
         /* Slide indicator dots */
         .dots-container {
-            position: absolute;
+            position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            z-index: 10;
+            z-index: 1002;
             display: flex;
             gap: 10px;
         }
@@ -245,44 +279,31 @@
         }
 
         .dot.active {
-            background-color: var(--primary-pink);
-            border-color: var(--primary-pink);
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
             width: 30px;
             border-radius: 7px;
         }
 
-        /* Exit button from fullscreen */
-        .exit-slideshow {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            z-index: 10;
-            transition: 0.3s ease;
-        }
-
-        .exit-slideshow:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-
         /* HERO SECTION */
         .hero-section {
-            background: linear-gradient(135deg, #ff477e, #ff6b9d);
+            background: linear-gradient(135deg, var(--primary-green), #27ae60);
             color: white;
             padding: 40px 20px;
             text-align: center;
         }
 
         .hero-section h1 {
-            font-size: 2rem;
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
             margin-bottom: 10px;
             animation: float 3s ease-in-out infinite;
+            font-weight: 700;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         @keyframes float {
@@ -313,8 +334,11 @@
 
         .wishes-section h2 {
             text-align: center;
-            color: var(--primary-pink);
+            color: var(--primary-green);
             margin-bottom: 20px;
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
         }
 
         .wish-card {
@@ -322,7 +346,7 @@
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 12px;
-            border-left: 6px solid var(--primary-pink);
+            border-left: 6px solid var(--primary-green);
             animation: slideInLeft 0.5s ease-out;
         }
 
@@ -341,7 +365,7 @@
             display: block;
             margin-top: 10px;
             font-weight: bold;
-            color: var(--primary-pink);
+            color: var(--primary-green);
         }
 
         /* Show main container only after exiting slideshow */
@@ -352,11 +376,11 @@
         /* Responsive for mobile */
         @media (max-width: 768px) {
             .welcome-content h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             .welcome-content p {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
 
             .slide-text-top h2 {
@@ -375,6 +399,10 @@
             .exit-slideshow {
                 padding: 10px 15px;
                 font-size: 14px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
             }
         }
 
@@ -410,7 +438,12 @@
             }
 
             .slide-text-top {
-                padding: 20px 10px;
+                height: 70px;
+                padding: 10px;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -419,6 +452,10 @@
 
     <!-- FULL SCREEN SLIDESHOW -->
     <div class="slideshow-section" id="fullscreenSlideshow">
+        
+        <!-- Exit button -->
+        <button class="exit-slideshow" onclick="exitSlideshow()">✕ Exit</button>
+
         <div class="slideshow-container">
             
             <!-- WELCOME SLIDE (FIRST SLIDE) -->
@@ -487,9 +524,6 @@
             <!-- Navigation arrows -->
             <a class="prev" onclick="changeSlide(-1)">❮</a>
             <a class="next" onclick="changeSlide(1)">❯</a>
-
-            <!-- Exit button -->
-            <button class="exit-slideshow" onclick="exitSlideshow()">✕ Exit</button>
         </div>
 
         <!-- Dots for slide indicators -->
@@ -508,7 +542,7 @@
         
         <!-- HERO SECTION -->
         <div class="hero-section">
-            <h1>✨ Happy Birthday, Bhavani! ✨</h1>
+            <h1>Happy Birthday, Bhavani!</h1>
             <p>A special day for a special person</p>
         </div>
 
@@ -548,25 +582,25 @@
 
         // Initialize slideshow
         function initSlideshow() {
-            console.log("Slideshow initialized");
+            console.log("Slideshow initialized with " + totalSlides + " slides");
             showSlides(slideIndex);
-            autoSlide();
+            startAutoSlide();
         }
 
         // Auto-advance slides every 5 seconds
-        function autoSlide() {
+        function startAutoSlide() {
             slideTimer = setInterval(() => {
                 slideIndex++;
-                console.log("Current slide: " + slideIndex + " / " + totalSlides);
+                console.log("Advancing to slide: " + slideIndex);
                 showSlides(slideIndex);
                 
-                // Auto-close after all slides are shown (after slide 6)
+                // Auto-close after going past the last slide
                 if (slideIndex > totalSlides) {
-                    console.log("All slides shown. Closing slideshow...");
+                    console.log("All slides completed. Exiting slideshow...");
                     clearInterval(slideTimer);
                     setTimeout(() => {
                         exitSlideshow();
-                    }, 500); // Small delay before closing
+                    }, 1000);
                 }
             }, 5000); // 5 seconds per slide
         }
@@ -576,7 +610,7 @@
             clearInterval(slideTimer);
             slideIndex += n;
             
-            // Prevent going beyond last slide when using arrow
+            // Prevent going beyond last slide
             if (slideIndex > totalSlides) {
                 slideIndex = totalSlides;
             }
@@ -585,7 +619,7 @@
             }
             
             showSlides(slideIndex);
-            autoSlide();
+            startAutoSlide();
         }
 
         // Dot click control
@@ -593,7 +627,7 @@
             clearInterval(slideTimer);
             slideIndex = n;
             showSlides(slideIndex);
-            autoSlide();
+            startAutoSlide();
         }
 
         // Display slides
@@ -627,10 +661,17 @@
 
         // Exit slideshow and show main content
         function exitSlideshow() {
-            console.log("Exiting slideshow");
+            console.log("Exiting slideshow and showing main content");
             clearInterval(slideTimer);
-            document.getElementById('fullscreenSlideshow').style.display = 'none';
-            document.getElementById('mainContainer').classList.remove('hide-on-load');
+            const slideshow = document.getElementById('fullscreenSlideshow');
+            const mainContainer = document.getElementById('mainContainer');
+            
+            if (slideshow) {
+                slideshow.style.display = 'none';
+            }
+            if (mainContainer) {
+                mainContainer.classList.remove('hide-on-load');
+            }
         }
 
         // Keyboard navigation
