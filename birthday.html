@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Responsive Variables */
         :root {
@@ -71,7 +70,9 @@
             display: none;
             width: 100%;
             height: 100%;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             animation: fadeIn 1s ease-in-out;
             flex-direction: column;
         }
@@ -87,116 +88,24 @@
             background: linear-gradient(135deg, #ff477e, #ff6b9d);
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
         .welcome-content {
             text-align: center;
             color: white;
-            position: relative;
-            z-index: 5;
         }
 
         .welcome-content h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 5rem;
+            font-size: 4rem;
             margin-bottom: 20px;
-            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
             animation: slideDown 1s ease-out;
-            font-weight: 400;
-            letter-spacing: 2px;
         }
 
         .welcome-content p {
             font-size: 2rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
             animation: slideUp 1s ease-out;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* BALLOON ANIMATIONS */
-        .balloon {
-            position: absolute;
-            bottom: -100px;
-            width: 80px;
-            height: 100px;
-            border-radius: 50% 50% 50% 0;
-            display: flex;
-            justify-content: center;
-            z-index: 3;
-            cursor: pointer;
-        }
-
-        .balloon::before {
-            content: '';
-            position: absolute;
-            bottom: -30px;
-            width: 2px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .balloon.left {
-            left: 15%;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            animation: floatUp 4s ease-in-out infinite, sway 3s ease-in-out infinite;
-        }
-
-        .balloon.right {
-            right: 15%;
-            background: linear-gradient(135deg, #FF69B4, #FF1493);
-            animation: floatUp 4s ease-in-out infinite 0.5s, sway 3s ease-in-out infinite 0.5s;
-        }
-
-        @keyframes floatUp {
-            0% {
-                bottom: -100px;
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                bottom: 150%;
-                opacity: 0;
-                transform: translateX(30px) rotate(20deg);
-            }
-        }
-
-        @keyframes sway {
-            0%, 100% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(20px);
-            }
-        }
-
-        /* CONFETTI PIECES */
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            pointer-events: none;
-            z-index: 4;
-        }
-
-        .confetti.pop {
-            animation: explode 2s ease-out forwards;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
         }
 
         /* Image slide styling */
@@ -219,10 +128,10 @@
             display: block;
         }
 
-        /* Text at bottom of slides */
-        .slide-text-bottom {
+        /* Text at TOP of slides */
+        .slide-text-top {
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.6);
@@ -234,23 +143,21 @@
             z-index: 5;
         }
 
-        .slide.active .slide-text-bottom {
+        .slide.active .slide-text-top {
             opacity: 1;
         }
 
-        .slide-text-bottom h2 {
+        .slide-text-top h2 {
             font-size: 2.5rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
             margin-bottom: 10px;
-            animation: slideUp 1s ease-out;
-            font-family: 'Poppins', sans-serif;
+            animation: slideDown 1s ease-out;
         }
 
-        .slide-text-bottom p {
+        .slide-text-top p {
             font-size: 1.3rem;
             text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
-            animation: slideUp 1s ease-out 0.2s both;
-            font-family: 'Poppins', sans-serif;
+            animation: slideDown 1s ease-out 0.2s both;
         }
 
         @keyframes slideDown {
@@ -358,7 +265,6 @@
             font-size: 16px;
             z-index: 10;
             transition: 0.3s ease;
-            font-family: 'Poppins', sans-serif;
         }
 
         .exit-slideshow:hover {
@@ -374,11 +280,9 @@
         }
 
         .hero-section h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.8rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             animation: float 3s ease-in-out infinite;
-            font-weight: 400;
         }
 
         @keyframes float {
@@ -411,7 +315,6 @@
             text-align: center;
             color: var(--primary-pink);
             margin-bottom: 20px;
-            font-family: 'Poppins', sans-serif;
         }
 
         .wish-card {
@@ -421,7 +324,6 @@
             border-radius: 12px;
             border-left: 6px solid var(--primary-pink);
             animation: slideInLeft 0.5s ease-out;
-            font-family: 'Poppins', sans-serif;
         }
 
         @keyframes slideInLeft {
@@ -450,18 +352,18 @@
         /* Responsive for mobile */
         @media (max-width: 768px) {
             .welcome-content h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             .welcome-content p {
                 font-size: 1.5rem;
             }
 
-            .slide-text-bottom h2 {
+            .slide-text-top h2 {
                 font-size: 1.8rem;
             }
 
-            .slide-text-bottom p {
+            .slide-text-top p {
                 font-size: 1rem;
             }
 
@@ -474,10 +376,6 @@
                 padding: 10px 15px;
                 font-size: 14px;
             }
-
-            .hero-section h1 {
-                font-size: 2rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -489,11 +387,11 @@
                 font-size: 1.2rem;
             }
 
-            .slide-text-bottom h2 {
+            .slide-text-top h2 {
                 font-size: 1.5rem;
             }
 
-            .slide-text-bottom p {
+            .slide-text-top p {
                 font-size: 0.9rem;
             }
 
@@ -511,17 +409,8 @@
                 width: 24px;
             }
 
-            .slide-text-bottom {
+            .slide-text-top {
                 padding: 20px 10px;
-            }
-
-            .balloon {
-                width: 60px;
-                height: 75px;
-            }
-
-            .hero-section h1 {
-                font-size: 1.5rem;
             }
         }
     </style>
@@ -534,69 +423,64 @@
             
             <!-- WELCOME SLIDE (FIRST SLIDE) -->
             <div class="slide welcome-slide active">
-                <!-- Left Balloon -->
-                <div class="balloon left" id="balloon1"></div>
-                <!-- Right Balloon -->
-                <div class="balloon right" id="balloon2"></div>
-
                 <div class="welcome-content">
-                    <h1>Happy Birthday</h1>
-                    <p id="friendName">Bhavani</p>
+                    <h1>Welcome 👋</h1>
+                    <p>Bhavani</p>
                 </div>
             </div>
 
             <!-- Slide 1 -->
             <div class="slide">
-                <div class="slide-image-wrapper">
-                    <img src="photo1.jpg" alt="Birthday Memory">
-                </div>
-                <div class="slide-text-bottom">
+                <div class="slide-text-top">
                     <h2>✨ Happy Birthday ✨</h2>
                     <p>To someone truly special</p>
+                </div>
+                <div class="slide-image-wrapper">
+                    <img src="photo1.jpg" alt="Birthday Memory">
                 </div>
             </div>
 
             <!-- Slide 2 -->
             <div class="slide">
-                <div class="slide-image-wrapper">
-                    <img src="photo2.jpg" alt="Birthday Memory">
-                </div>
-                <div class="slide-text-bottom">
+                <div class="slide-text-top">
                     <h2>🎉 Your Special Day 🎉</h2>
                     <p>Celebrating you today</p>
+                </div>
+                <div class="slide-image-wrapper">
+                    <img src="photo2.jpg" alt="Birthday Memory">
                 </div>
             </div>
 
             <!-- Slide 3 -->
             <div class="slide">
-                <div class="slide-image-wrapper">
-                    <img src="photo3.jpg" alt="Birthday Memory">
-                </div>
-                <div class="slide-text-bottom">
+                <div class="slide-text-top">
                     <h2>💖 You Are Amazing 💖</h2>
                     <p>Making the world brighter</p>
+                </div>
+                <div class="slide-image-wrapper">
+                    <img src="photo3.jpg" alt="Birthday Memory">
                 </div>
             </div>
 
             <!-- Slide 4 -->
             <div class="slide">
-                <div class="slide-image-wrapper">
-                    <img src="photo4.jpg" alt="Birthday Memory">
-                </div>
-                <div class="slide-text-bottom">
+                <div class="slide-text-top">
                     <h2>🌟 Cheers to You 🌟</h2>
                     <p>Another year, another adventure</p>
+                </div>
+                <div class="slide-image-wrapper">
+                    <img src="photo4.jpg" alt="Birthday Memory">
                 </div>
             </div>
 
             <!-- Slide 5 -->
             <div class="slide">
-                <div class="slide-image-wrapper">
-                    <img src="photo5.jpg" alt="Birthday Memory">
-                </div>
-                <div class="slide-text-bottom">
+                <div class="slide-text-top">
                     <h2>🎂 Have an Amazing Year 🎂</h2>
                     <p>Full of joy and blessings</p>
+                </div>
+                <div class="slide-image-wrapper">
+                    <img src="photo5.jpg" alt="Birthday Memory">
                 </div>
             </div>
 
@@ -624,7 +508,7 @@
         
         <!-- HERO SECTION -->
         <div class="hero-section">
-            <h1>Happy Birthday, rosa!</h1>
+            <h1>✨ Happy Birthday, Bhavani! ✨</h1>
             <p>A special day for a special person</p>
         </div>
 
@@ -662,62 +546,9 @@
         let slideTimer;
         const totalSlides = 6; // Welcome slide + 5 photo slides
 
-        // Create confetti pieces when balloons float up
-        function createConfetti(balloonElement) {
-            const balloonRect = balloonElement.getBoundingClientRect();
-            const balloonX = balloonRect.left + balloonRect.width / 2;
-            const balloonY = balloonRect.top + balloonRect.height / 2;
-            const welcomeSlide = document.querySelector('.welcome-slide');
-
-            // Create 20-30 confetti pieces
-            for (let i = 0; i < 25; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti pop';
-                
-                // Random colors
-                const colors = ['#FFD700', '#FF69B4', '#FF1493', '#FFA500', '#00D4FF', '#00FF00'];
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Random position relative to balloon
-                const angle = (i / 25) * Math.PI * 2;
-                const velocity = 3 + Math.random() * 5;
-                const tx = Math.cos(angle) * velocity * 50;
-                const ty = Math.sin(angle) * velocity * 50 - 100;
-                
-                confetti.style.setProperty('--tx', tx + 'px');
-                confetti.style.setProperty('--ty', ty + 'px');
-                
-                confetti.style.left = balloonX + 'px';
-                confetti.style.top = balloonY + 'px';
-                
-                welcomeSlide.appendChild(confetti);
-                
-                // Remove after animation
-                setTimeout(() => confetti.remove(), 2000);
-            }
-        }
-
-        // Add balloon click event to create confetti
-        function initBalloons() {
-            const balloon1 = document.getElementById('balloon1');
-            const balloon2 = document.getElementById('balloon2');
-            
-            balloon1.addEventListener('click', () => createConfetti(balloon1));
-            balloon2.addEventListener('click', () => createConfetti(balloon2));
-
-            // Auto-trigger confetti pop when balloons reach top
-            setTimeout(() => {
-                createConfetti(balloon1);
-            }, 3500);
-
-            setTimeout(() => {
-                createConfetti(balloon2);
-            }, 4000);
-        }
-
         // Initialize slideshow
         function initSlideshow() {
-            initBalloons();
+            console.log("Slideshow initialized");
             showSlides(slideIndex);
             autoSlide();
         }
@@ -726,16 +557,18 @@
         function autoSlide() {
             slideTimer = setInterval(() => {
                 slideIndex++;
+                console.log("Current slide: " + slideIndex + " / " + totalSlides);
                 showSlides(slideIndex);
                 
-                // Auto-close after all slides are shown
+                // Auto-close after all slides are shown (after slide 6)
                 if (slideIndex > totalSlides) {
+                    console.log("All slides shown. Closing slideshow...");
                     clearInterval(slideTimer);
                     setTimeout(() => {
                         exitSlideshow();
-                    }, 1000);
+                    }, 500); // Small delay before closing
                 }
-            }, 5000);
+            }, 5000); // 5 seconds per slide
         }
 
         // Manual slide control
@@ -743,11 +576,9 @@
             clearInterval(slideTimer);
             slideIndex += n;
             
-            // Prevent going beyond last slide
+            // Prevent going beyond last slide when using arrow
             if (slideIndex > totalSlides) {
                 slideIndex = totalSlides;
-                clearInterval(slideTimer);
-                return;
             }
             if (slideIndex < 1) {
                 slideIndex = 1;
@@ -777,6 +608,7 @@
                 slideIndex = 1;
             }
 
+            // Remove active class from all slides and dots
             for (let i = 0; i < slides.length; i++) {
                 slides[i].classList.remove('active');
             }
@@ -784,12 +616,18 @@
                 dots[i].classList.remove('active');
             }
 
-            slides[slideIndex - 1].classList.add('active');
-            dots[slideIndex - 1].classList.add('active');
+            // Add active class to current slide and dot
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].classList.add('active');
+            }
+            if (dots[slideIndex - 1]) {
+                dots[slideIndex - 1].classList.add('active');
+            }
         }
 
         // Exit slideshow and show main content
         function exitSlideshow() {
+            console.log("Exiting slideshow");
             clearInterval(slideTimer);
             document.getElementById('fullscreenSlideshow').style.display = 'none';
             document.getElementById('mainContainer').classList.remove('hide-on-load');
@@ -797,7 +635,8 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
+            const slideshow = document.getElementById('fullscreenSlideshow');
+            if (slideshow && slideshow.style.display !== 'none') {
                 if (e.key === 'ArrowLeft') changeSlide(-1);
                 if (e.key === 'ArrowRight') changeSlide(1);
                 if (e.key === 'Escape') exitSlideshow();
