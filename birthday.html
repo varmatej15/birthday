@@ -38,6 +38,7 @@
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             overflow: hidden;
+            display: none; /* Hidden until slideshow ends */
         }
 
         /* FULL SCREEN SLIDESHOW SECTION */
@@ -51,11 +52,8 @@
             display: flex;
             flex-direction: column;
             z-index: 1000;
-            margin: 0;
-            padding: 0;
         }
 
-        /* Exit button from fullscreen */
         .exit-slideshow {
             position: fixed;
             top: 20px;
@@ -71,22 +69,15 @@
             transition: 0.3s ease;
         }
 
-        .exit-slideshow:hover {
-            background: rgba(0, 0, 0, 0.95);
-        }
-
         .slideshow-container {
             position: relative;
             width: 100%;
             flex: 1;
-            display: flex;
-            flex-direction: column;
             background: #000;
-            margin-top: 0;
         }
 
         .slide {
-            display: none !important;
+            display: none;
             width: 100%;
             height: 100%;
             position: absolute;
@@ -98,18 +89,13 @@
         }
 
         .slide.active {
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
+            display: flex;
             animation: fadeIn 0.8s ease-in-out;
         }
 
         /* Welcome slide styling */
         .slide.welcome-slide {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
-            justify-content: center;
-            align-items: center;
-            position: relative;
         }
 
         .welcome-content {
@@ -120,51 +106,24 @@
         .welcome-content h1 {
             font-family: 'Caveat', cursive;
             font-size: 5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
-            animation: slideDown 1s ease-out;
             font-weight: 700;
         }
 
-        .welcome-content p {
-            font-family: 'Caveat', cursive;
-            font-size: 3rem;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.5);
-            animation: slideUp 1s ease-out;
-            font-weight: 700;
-        }
-
-        /* Image slide styling */
         .slide-image-wrapper {
             width: 100%;
             height: 100%;
-            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             overflow: hidden;
         }
 
         .slide img {
             max-width: 100%;
             max-height: 100%;
-            width: auto;
-            height: auto;
             object-fit: contain;
-            display: block;
-            animation: zoomIn 0.8s ease-out;
         }
 
-        /* Fallback text when image fails to load */
-        .image-fallback {
-            color: white;
-            font-family: 'Caveat', cursive;
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        /* Text at TOP of slides - NO OVERLAP */
         .slide-text-top {
             position: absolute;
             top: 0;
@@ -174,141 +133,56 @@
             color: white;
             text-align: center;
             padding: 20px;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
             z-index: 1001;
             height: 80px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
         }
 
-        .slide.active .slide-text-top {
-            opacity: 1;
-        }
+        .slide-text-top h2 { font-family: 'Caveat', cursive; font-size: 2.2rem; }
 
-        .slide-text-top h2 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
-            margin: 0;
-            animation: slideDown 1s ease-out;
-            font-weight: 700;
-        }
-
-        .slide-text-top p {
-            font-family: 'Caveat', cursive;
-            font-size: 1.1rem;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.9);
-            animation: slideDown 1s ease-out 0.2s both;
-            margin: 0;
-            font-weight: 700;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* Slideshow controls */
+        /* Navigation Arrows */
         .prev, .next {
             cursor: pointer;
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            width: auto;
             padding: 20px;
             color: white;
-            background: rgba(0, 0, 0, 0.6);
-            font-weight: bold;
+            background: rgba(0, 0, 0, 0.4);
             font-size: 28px;
-            transition: 0.3s ease;
-            user-select: none;
             z-index: 1002;
-            border: none;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            user-select: none;
         }
+        .prev { left: 20px; }
+        .next { right: 20px; }
 
-        .prev:hover, .next:hover {
-            background: rgba(0, 0, 0, 0.9);
-        }
-
-        .prev {
-            left: 20px;
-        }
-
-        .next {
-            right: 20px;
-        }
-
-        /* Slide indicator dots */
         .dots-container {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            text-align: center;
             z-index: 1002;
             display: flex;
             gap: 10px;
         }
 
         .dot {
-            cursor: pointer;
-            height: 14px;
-            width: 14px;
+            height: 12px;
+            width: 12px;
             background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
-            display: inline-block;
-            transition: all 0.3s ease;
-            border: 2px solid white;
+            cursor: pointer;
         }
 
         .dot.active {
             background-color: var(--primary-green);
-            border-color: var(--primary-green);
-            width: 30px;
-            border-radius: 7px;
+            width: 25px;
+            border-radius: 6px;
         }
 
-        /* HERO SECTION */
+        /* MAIN CONTENT - WISH CARDS */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
             color: white;
@@ -316,72 +190,30 @@
             text-align: center;
         }
 
-        .hero-section h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            animation: float 3s ease-in-out infinite;
-            font-weight: 700;
-        }
+        .hero-section h1 { font-family: 'Caveat', cursive; font-size: 3.5rem; }
 
-        .hero-section p {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* MEDIA GRID */
-        .media-grid {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        /* WISHES SECTION */
-        .wishes-section {
-            padding: 20px;
-            background: #fffafa;
-        }
-
-        .wishes-section h2 {
-            text-align: center;
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
+        .wishes-section { padding: 20px; background: #fffafa; }
 
         .wish-card {
             background: white;
-            padding: 15px;
+            padding: 20px;
             margin-bottom: 15px;
             border-radius: 12px;
             border-left: 6px solid var(--primary-green);
-            animation: slideInLeft 0.5s ease-out;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.5s ease-in-out;
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .wish-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .wish-text {
+            flex: 1;
+            transition: all 0.5s ease-in-out;
         }
 
         .sender-name {
@@ -389,99 +221,50 @@
             margin-top: 10px;
             font-weight: bold;
             color: var(--primary-green);
+            cursor: pointer;
+            text-decoration: underline dotted;
         }
 
-        /* Show main container only after exiting slideshow */
-        .main-container.hide-on-load {
-            display: none;
+        /* HIDDEN COMPARTMENT */
+        .wish-video-compartment {
+            width: 0;
+            height: 0;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
         }
 
-        /* Responsive for mobile */
-        @media (max-width: 768px) {
-            .welcome-content h1 {
-                font-size: 3rem;
-            }
-
-            .welcome-content p {
-                font-size: 2rem;
-            }
-
-            .slide-text-top h2 {
-                font-size: 1.8rem;
-            }
-
-            .slide-text-top p {
-                font-size: 1rem;
-            }
-
-            .prev, .next {
-                padding: 15px;
-                font-size: 22px;
-            }
-
-            .exit-slideshow {
-                padding: 10px 15px;
-                font-size: 14px;
-            }
-
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
+        .wish-video-compartment video {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        @media (max-width: 480px) {
-            .welcome-content h1 {
-                font-size: 2rem;
-            }
-
-            .welcome-content p {
-                font-size: 1.2rem;
-            }
-
-            .slide-text-top h2 {
-                font-size: 1.5rem;
-            }
-
-            .slide-text-top p {
-                font-size: 0.9rem;
-            }
-
-            .prev, .next {
-                padding: 12px;
-                font-size: 18px;
-            }
-
-            .dot {
-                height: 10px;
-                width: 10px;
-            }
-
-            .dot.active {
-                width: 24px;
-            }
-
-            .slide-text-top {
-                height: 70px;
-                padding: 10px;
-            }
-
-            .hero-section h1 {
-                font-size: 2rem;
-            }
+        /* Open state for the switch */
+        .wish-card.video-active {
+            background: #f0fff4;
         }
+
+        .wish-card.video-active .wish-text {
+            flex: 0.4;
+            font-size: 0.9rem;
+        }
+
+        .wish-card.video-active .wish-video-compartment {
+            width: 55%;
+            height: auto;
+            opacity: 1;
+            margin-left: 15px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- FULL SCREEN SLIDESHOW -->
     <div class="slideshow-section" id="fullscreenSlideshow">
-        
-        <!-- Exit button -->
         <button class="exit-slideshow" onclick="exitSlideshow()">✕ Exit</button>
 
         <div class="slideshow-container">
-            
-            <!-- WELCOME SLIDE (FIRST SLIDE) -->
             <div class="slide welcome-slide active">
                 <div class="welcome-content">
                     <h1>Welcome 👋</h1>
@@ -489,67 +272,35 @@
                 </div>
             </div>
 
-            <!-- Slide 1 -->
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>✨ Happy Birthday ✨</h2>
-                    <p>To someone truly special</p>
-                </div>
-                <div class="slide-image-wrapper">
-                    <img src="photo1.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo1.jpg with your image</div>'">
-                </div>
+                <div class="slide-text-top"><h2>✨ Happy Birthday ✨</h2></div>
+                <div class="slide-image-wrapper"><img src="photo1.jpg" alt="Memory 1"></div>
             </div>
 
-            <!-- Slide 2 -->
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🎉 Your Special Day 🎉</h2>
-                    <p>Celebrating you today</p>
-                </div>
-                <div class="slide-image-wrapper">
-                    <img src="photo2.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo2.jpg with your image</div>'">
-                </div>
+                <div class="slide-text-top"><h2>🎉 Your Special Day 🎉</h2></div>
+                <div class="slide-image-wrapper"><img src="photo2.jpg" alt="Memory 2"></div>
             </div>
 
-            <!-- Slide 3 -->
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>💖 You Are Amazing 💖</h2>
-                    <p>Making the world brighter</p>
-                </div>
-                <div class="slide-image-wrapper">
-                    <img src="photo3.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo3.jpg with your image</div>'">
-                </div>
+                <div class="slide-text-top"><h2>💖 You Are Amazing 💖</h2></div>
+                <div class="slide-image-wrapper"><img src="photo3.jpg" alt="Memory 3"></div>
             </div>
 
-            <!-- Slide 4 -->
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🌟 Cheers to You 🌟</h2>
-                    <p>Another year, another adventure</p>
-                </div>
-                <div class="slide-image-wrapper">
-                    <img src="photo4.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo4.jpg with your image</div>'">
-                </div>
+                <div class="slide-text-top"><h2>🌟 Cheers to You 🌟</h2></div>
+                <div class="slide-image-wrapper"><img src="photo4.jpg" alt="Memory 4"></div>
             </div>
 
-            <!-- Slide 5 -->
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🎂 Have an Amazing Year 🎂</h2>
-                    <p>Full of joy and blessings</p>
-                </div>
-                <div class="slide-image-wrapper">
-                    <img src="photo5.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo5.jpg with your image</div>'">
-                </div>
+                <div class="slide-text-top"><h2>🎂 Have an Amazing Year 🎂</h2></div>
+                <div class="slide-image-wrapper"><img src="photo5.jpg" alt="Memory 5"></div>
             </div>
 
-            <!-- Navigation arrows -->
             <a class="prev" onclick="changeSlide(-1)">❮</a>
             <a class="next" onclick="changeSlide(1)">❯</a>
         </div>
 
-        <!-- Dots for slide indicators -->
         <div class="dots-container">
             <span class="dot active" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
@@ -560,84 +311,80 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT (Hidden until user exits slideshow) -->
-    <div class="main-container hide-on-load" id="mainContainer">
-        
-        <!-- HERO SECTION -->
+    <div class="main-container" id="mainContainer">
         <div class="hero-section">
             <h1>Happy Birthday, Bhavani!</h1>
             <p>A special day for a special person</p>
         </div>
 
-        <!-- MEDIA GRID (for additional content) -->
-        <div class="media-grid">
-            <video controls>
-                <source src="video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-
-        <!-- WISHES SECTION -->
         <div class="wishes-section">
             <h2>Warm Wishes</h2>
             
-            <div class="wish-card">
-                "May your year be as bright as your smile!"
-                <span class="sender-name">— From Ramesh</span>
+            <div class="wish-card" id="card-ramesh">
+                <div class="wish-content-wrapper">
+                    <div class="wish-text">
+                        "May your year be as bright as your smile! You deserve the world."
+                        <span class="sender-name" onclick="toggleVideo('ramesh')">— From Ramesh</span>
+                    </div>
+                    <div class="wish-video-compartment">
+                        <video controls id="video-ramesh">
+                            <source src="video2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wish-card" id="card-sameer">
+                <div class="wish-content-wrapper">
+                    <div class="wish-text">
+                        "Keep shining and reaching for the stars. Happy birthday buddy!"
+                        <span class="sender-name" onclick="toggleVideo('sameer')">— From Sameer</span>
+                    </div>
+                    <div class="wish-video-compartment">
+                        <video controls id="video-sameer">
+                            <source src="video3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
             </div>
 
             <div class="wish-card">
-                "Keep shining and reaching for the stars."
-                <span class="sender-name">— From Sameer</span>
+                <div class="wish-text">
+                    "Wishing you a year filled with love and laughter!"
+                    <span class="sender-name">— From All Your Friends</span>
+                </div>
             </div>
-
-            
         </div>
     </div>
 
     <script>
         let slideIndex = 1;
         let slideTimer;
-        const totalSlides = 6; // Welcome slide + 5 photo slides
+        const totalSlides = 6;
 
         function initSlideshow() {
-            console.log('Slideshow initialized');
             showSlides(slideIndex);
             startAutoSlide();
         }
 
         function startAutoSlide() {
-            // Clear any existing timer to prevent multiple timers running at once
             if (slideTimer) clearInterval(slideTimer);
-            
             slideTimer = setInterval(() => {
                 slideIndex++;
-                console.log('Auto advance - Slide:', slideIndex);
                 if (slideIndex > totalSlides) {
-                    console.log('Last slide reached, exiting...');
                     exitSlideshow();
                 } else {
                     showSlides(slideIndex);
                 }
-            }, 5000); 
+            }, 5000);
         }
 
         function changeSlide(n) {
             slideIndex += n;
-            
-            // If user clicks "Next" on the very last slide, exit the slideshow
-            if (slideIndex > totalSlides) {
-                exitSlideshow();
-                return;
-            }
-            
-            // Prevent going back before the first slide
-            if (slideIndex < 1) {
-                slideIndex = 1;
-            }
-            
+            if (slideIndex > totalSlides) { exitSlideshow(); return; }
+            if (slideIndex < 1) slideIndex = 1;
             showSlides(slideIndex);
-            startAutoSlide(); // Reset timer so it doesn't jump immediately
+            startAutoSlide();
         }
 
         function currentSlide(n) {
@@ -649,59 +396,35 @@
         function showSlides(n) {
             const slides = document.getElementsByClassName('slide');
             const dots = document.getElementsByClassName('dot');
-
-            console.log('Showing slide:', n, 'Total slides:', slides.length);
-
-            // Hide all slides and dots
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove('active');
-            }
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.remove('active');
-            }
-
-            // Show the current slide
-            if (slides[slideIndex - 1]) {
-                slides[slideIndex - 1].classList.add('active');
-            }
-            if (dots[slideIndex - 1]) {
-                dots[slideIndex - 1].classList.add('active');
-            }
+            for (let i = 0; i < slides.length; i++) slides[i].classList.remove('active');
+            for (let i = 0; i < dots.length; i++) dots[i].classList.remove('active');
+            if (slides[slideIndex - 1]) slides[slideIndex - 1].classList.add('active');
+            if (dots[slideIndex - 1]) dots[slideIndex - 1].classList.add('active');
         }
 
         function exitSlideshow() {
             clearInterval(slideTimer);
-            const slideshow = document.getElementById('fullscreenSlideshow');
-            const mainContainer = document.getElementById('mainContainer');
+            document.getElementById('fullscreenSlideshow').style.display = 'none';
+            const main = document.getElementById('mainContainer');
+            main.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // HIDDEN COMPARTMENT LOGIC
+        function toggleVideo(person) {
+            const card = document.getElementById('card-' + person);
+            const video = document.getElementById('video-' + person);
             
-            console.log('Exiting slideshow...');
-            
-            if (slideshow) {
-                slideshow.style.display = 'none';
-            }
-            if (mainContainer) {
-                mainContainer.classList.remove('hide-on-load');
-                mainContainer.style.display = 'block';
-                window.scrollTo(0, 0); // Scroll to top of the birthday wishes
+            if (card.classList.contains('video-active')) {
+                card.classList.remove('video-active');
+                video.pause();
+            } else {
+                card.classList.add('video-active');
+                video.play().catch(() => {});
             }
         }
 
-        document.addEventListener('keydown', (e) => {
-            const slideshow = document.getElementById('fullscreenSlideshow');
-            if (slideshow && slideshow.style.display !== 'none') {
-                if (e.key === 'ArrowLeft') changeSlide(-1);
-                if (e.key === 'ArrowRight') changeSlide(1);
-                if (e.key === 'Escape') exitSlideshow();
-            }
-        });
-
-        // Initialize when page loads
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initSlideshow);
-        } else {
-            initSlideshow();
-        }
+        window.addEventListener('load', initSlideshow);
     </script>
-
 </body>
 </html>
