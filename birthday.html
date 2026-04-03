@@ -92,7 +92,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            animation: fadeIn 1s ease-in-out;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -102,6 +101,7 @@
             display: flex !important;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
         /* Welcome slide styling */
@@ -143,6 +143,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
         .slide img {
@@ -152,6 +153,15 @@
             height: auto;
             object-fit: contain;
             display: block;
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        /* Fallback text when image fails to load */
+        .image-fallback {
+            color: white;
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            text-align: center;
         }
 
         /* Text at TOP of slides - NO OVERLAP */
@@ -221,6 +231,17 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* Slideshow controls */
@@ -475,7 +496,7 @@
                     <p>To someone truly special</p>
                 </div>
                 <div class="slide-image-wrapper">
-                    <img src="https://via.placeholder.com/800x600?text=Photo+1" alt="Birthday Memory">
+                    <img src="photo1.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo1.jpg with your image</div>'">
                 </div>
             </div>
 
@@ -486,7 +507,7 @@
                     <p>Celebrating you today</p>
                 </div>
                 <div class="slide-image-wrapper">
-                    <img src="https://via.placeholder.com/800x600?text=Photo+2" alt="Birthday Memory">
+                    <img src="photo2.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo2.jpg with your image</div>'">
                 </div>
             </div>
 
@@ -497,7 +518,7 @@
                     <p>Making the world brighter</p>
                 </div>
                 <div class="slide-image-wrapper">
-                    <img src="https://via.placeholder.com/800x600?text=Photo+3" alt="Birthday Memory">
+                    <img src="photo3.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo3.jpg with your image</div>'">
                 </div>
             </div>
 
@@ -508,7 +529,7 @@
                     <p>Another year, another adventure</p>
                 </div>
                 <div class="slide-image-wrapper">
-                    <img src="https://via.placeholder.com/800x600?text=Photo+4" alt="Birthday Memory">
+                    <img src="photo4.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo4.jpg with your image</div>'">
                 </div>
             </div>
 
@@ -519,7 +540,7 @@
                     <p>Full of joy and blessings</p>
                 </div>
                 <div class="slide-image-wrapper">
-                    <img src="https://via.placeholder.com/800x600?text=Photo+5" alt="Birthday Memory">
+                    <img src="photo5.jpg" alt="Birthday Memory" onerror="this.parentElement.innerHTML='<div class=\'image-fallback\'>Replace photo5.jpg with your image</div>'">
                 </div>
             </div>
 
