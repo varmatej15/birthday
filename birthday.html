@@ -3,34 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Bhavani!</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Responsive Variables */
         :root {
             --primary-green: #2ecc71;
-            --parrot-green: #2ecc71;
             --soft-bg: #fff0f3;
             --text-dark: #2d3436;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--soft-bg);
-            color: var(--text-dark);
             display: flex;
             justify-content: center;
             padding: 20px;
             min-height: 100vh;
         }
 
-        /* Container that adjusts size based on screen */
         .main-container {
             width: 100%;
             max-width: 800px;
@@ -38,276 +30,120 @@
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             overflow: hidden;
-            display: none; /* Hidden until slideshow ends */
+            display: none; /* Controlled by JS */
         }
 
-        /* FULL SCREEN SLIDESHOW SECTION */
+        /* --- SLIDESHOW STYLES --- */
         .slideshow-section {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        .exit-slideshow {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            z-index: 1005;
-            transition: 0.3s ease;
-        }
-
-        .slideshow-container {
-            position: relative;
-            width: 100%;
-            flex: 1;
-            background: #000;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 1000; display: flex; flex-direction: column;
         }
 
         .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: none; width: 100%; height: 100%;
+            position: absolute; flex-direction: column;
+            align-items: center; justify-content: center;
         }
 
-        .slide.active {
-            display: flex;
-            animation: fadeIn 0.8s ease-in-out;
-        }
+        .slide.active { display: flex; animation: fadeIn 0.8s; }
 
-        /* Welcome slide styling */
-        .slide.welcome-slide {
-            background: linear-gradient(135deg, var(--primary-green), #27ae60);
-        }
+        .slide.welcome-slide { background: linear-gradient(135deg, var(--primary-green), #27ae60); }
+        .welcome-content { text-align: center; color: white; }
+        .welcome-content h1 { font-family: 'Caveat', cursive; font-size: 5rem; }
 
-        .welcome-content {
-            text-align: center;
-            color: white;
-        }
-
-        .welcome-content h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 5rem;
-            font-weight: 700;
-        }
-
-        .slide-image-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .slide img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+        .slide-image-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
         .slide-text-top {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            z-index: 1001;
-            height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            position: absolute; top: 0; width: 100%; background: rgba(0,0,0,0.6);
+            color: white; text-align: center; padding: 20px; height: 80px;
+            display: flex; flex-direction: column; justify-content: center;
         }
-
         .slide-text-top h2 { font-family: 'Caveat', cursive; font-size: 2.2rem; }
 
-        /* Navigation Arrows */
         .prev, .next {
-            cursor: pointer;
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 20px;
-            color: white;
-            background: rgba(0, 0, 0, 0.4);
-            font-size: 28px;
-            z-index: 1002;
-            user-select: none;
+            cursor: pointer; position: fixed; top: 50%; padding: 20px;
+            color: white; background: rgba(0,0,0,0.3); font-size: 28px; z-index: 1002;
         }
-        .prev { left: 20px; }
-        .next { right: 20px; }
+        .prev { left: 20px; } .next { right: 20px; }
 
-        .dots-container {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1002;
-            display: flex;
-            gap: 10px;
-        }
-
-        .dot {
-            height: 12px;
-            width: 12px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .dot.active {
-            background-color: var(--primary-green);
-            width: 25px;
-            border-radius: 6px;
-        }
-
-        /* MAIN CONTENT - WISH CARDS */
+        /* --- MAIN CONTENT STYLES --- */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
+            color: white; padding: 60px 20px; text-align: center;
         }
+        .hero-section h1 { font-family: 'Caveat', cursive; font-size: 4rem; margin-bottom: 10px; }
+        .hero-section p { font-size: 1.2rem; opacity: 0.9; }
 
-        .hero-section h1 { font-family: 'Caveat', cursive; font-size: 3.5rem; }
+        .media-gallery { padding: 30px 20px; text-align: center; }
+        .main-video { width: 100%; max-width: 600px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
-        .wishes-section { padding: 20px; background: #fffafa; }
+        .wishes-section { padding: 30px 20px; background: #fffafa; }
+        .wishes-section h2 { font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--primary-green); margin-bottom: 20px; }
 
+        /* --- THE HIDDEN COMPARTMENT LOGIC --- */
         .wish-card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border-left: 6px solid var(--primary-green);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.5s ease-in-out;
+            background: white; border-radius: 15px; margin-bottom: 20px;
+            border-left: 8px solid var(--primary-green);
+            padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .wish-content-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            overflow: hidden;
+            display: flex; flex-direction: row; align-items: flex-start;
+            gap: 0; overflow: hidden;
         }
 
         .wish-text {
-            flex: 1;
-            transition: all 0.5s ease-in-out;
+            flex: 1; transition: all 0.6s ease;
         }
 
         .sender-name {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-            color: var(--primary-green);
-            cursor: pointer;
-            text-decoration: underline dotted;
+            display: inline-block; margin-top: 15px; font-weight: 700;
+            color: var(--primary-green); cursor: pointer; text-decoration: underline dotted;
         }
 
-        /* HIDDEN COMPARTMENT */
         .wish-video-compartment {
-            width: 0;
-            height: 0;
-            opacity: 0;
-            transition: all 0.5s ease-in-out;
+            width: 0; opacity: 0; height: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .wish-video-compartment video {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+        .wish-video-compartment video { width: 100%; border-radius: 10px; display: block; }
 
-        /* Open state for the switch */
-        .wish-card.video-active {
-            background: #f0fff4;
-        }
-
-        .wish-card.video-active .wish-text {
-            flex: 0.4;
-            font-size: 0.9rem;
-        }
-
+        /* Expanded State */
+        .wish-card.video-active { background: #f9fffb; }
+        .wish-card.video-active .wish-text { flex: 0.3; font-size: 0.85rem; padding-right: 15px; }
         .wish-card.video-active .wish-video-compartment {
-            width: 55%;
-            height: auto;
-            opacity: 1;
-            margin-left: 15px;
+            width: 70%; height: auto; opacity: 1;
         }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .wish-card.video-active .wish-content-wrapper { flex-direction: column; }
+            .wish-card.video-active .wish-text { flex: 1; margin-bottom: 15px; }
+            .wish-card.video-active .wish-video-compartment { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
     <div class="slideshow-section" id="fullscreenSlideshow">
-        <button class="exit-slideshow" onclick="exitSlideshow()">✕ Exit</button>
-
         <div class="slideshow-container">
             <div class="slide welcome-slide active">
-                <div class="welcome-content">
-                    <h1>Welcome 👋</h1>
-                    <p>Bhavani</p>
-                </div>
+                <div class="welcome-content"><h1>Welcome 👋</h1><p>Bhavani</p></div>
             </div>
-
             <div class="slide">
                 <div class="slide-text-top"><h2>✨ Happy Birthday ✨</h2></div>
-                <div class="slide-image-wrapper"><img src="photo1.jpg" alt="Memory 1"></div>
+                <div class="slide-image-wrapper"><img src="photo1.jpg" alt="Photo 1"></div>
             </div>
-
             <div class="slide">
-                <div class="slide-text-top"><h2>🎉 Your Special Day 🎉</h2></div>
-                <div class="slide-image-wrapper"><img src="photo2.jpg" alt="Memory 2"></div>
+                <div class="slide-text-top"><h2>🎉 Special Memories 🎉</h2></div>
+                <div class="slide-image-wrapper"><img src="photo2.jpg" alt="Photo 2"></div>
             </div>
-
-            <div class="slide">
-                <div class="slide-text-top"><h2>💖 You Are Amazing 💖</h2></div>
-                <div class="slide-image-wrapper"><img src="photo3.jpg" alt="Memory 3"></div>
-            </div>
-
-            <div class="slide">
-                <div class="slide-text-top"><h2>🌟 Cheers to You 🌟</h2></div>
-                <div class="slide-image-wrapper"><img src="photo4.jpg" alt="Memory 4"></div>
-            </div>
-
-            <div class="slide">
-                <div class="slide-text-top"><h2>🎂 Have an Amazing Year 🎂</h2></div>
-                <div class="slide-image-wrapper"><img src="photo5.jpg" alt="Memory 5"></div>
-            </div>
-
             <a class="prev" onclick="changeSlide(-1)">❮</a>
             <a class="next" onclick="changeSlide(1)">❯</a>
-        </div>
-
-        <div class="dots-container">
-            <span class="dot active" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(4)"></span>
-            <span class="dot" onclick="currentSlide(5)"></span>
-            <span class="dot" onclick="currentSlide(6)"></span>
         </div>
     </div>
 
@@ -317,17 +153,24 @@
             <p>A special day for a special person</p>
         </div>
 
+        <div class="media-gallery">
+            <video class="main-video" controls>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
         <div class="wishes-section">
             <h2>Warm Wishes</h2>
             
             <div class="wish-card" id="card-ramesh">
                 <div class="wish-content-wrapper">
                     <div class="wish-text">
-                        "May your year be as bright as your smile! You deserve the world."
+                        "May your year be as bright as your smile! You deserve the world and all the happiness in it."
                         <span class="sender-name" onclick="toggleVideo('ramesh')">— From Ramesh</span>
                     </div>
                     <div class="wish-video-compartment">
-                        <video controls id="video-ramesh">
+                        <video id="video-ramesh" controls>
                             <source src="video2.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -337,21 +180,14 @@
             <div class="wish-card" id="card-sameer">
                 <div class="wish-content-wrapper">
                     <div class="wish-text">
-                        "Keep shining and reaching for the stars. Happy birthday buddy!"
+                        "Keep shining and reaching for the stars. Happy birthday buddy! Hope you have a blast."
                         <span class="sender-name" onclick="toggleVideo('sameer')">— From Sameer</span>
                     </div>
                     <div class="wish-video-compartment">
-                        <video controls id="video-sameer">
+                        <video id="video-sameer" controls>
                             <source src="video3.mp4" type="video/mp4">
                         </video>
                     </div>
-                </div>
-            </div>
-
-            <div class="wish-card">
-                <div class="wish-text">
-                    "Wishing you a year filled with love and laughter!"
-                    <span class="sender-name">— From All Your Friends</span>
                 </div>
             </div>
         </div>
@@ -359,72 +195,54 @@
 
     <script>
         let slideIndex = 1;
-        let slideTimer;
-        const totalSlides = 6;
-
-        function initSlideshow() {
-            showSlides(slideIndex);
-            startAutoSlide();
-        }
-
-        function startAutoSlide() {
-            if (slideTimer) clearInterval(slideTimer);
-            slideTimer = setInterval(() => {
-                slideIndex++;
-                if (slideIndex > totalSlides) {
-                    exitSlideshow();
-                } else {
-                    showSlides(slideIndex);
-                }
-            }, 5000);
-        }
-
-        function changeSlide(n) {
-            slideIndex += n;
-            if (slideIndex > totalSlides) { exitSlideshow(); return; }
-            if (slideIndex < 1) slideIndex = 1;
-            showSlides(slideIndex);
-            startAutoSlide();
-        }
-
-        function currentSlide(n) {
-            slideIndex = n;
-            showSlides(slideIndex);
-            startAutoSlide();
-        }
+        const totalSlides = 3; // Adjust based on your slides
 
         function showSlides(n) {
             const slides = document.getElementsByClassName('slide');
-            const dots = document.getElementsByClassName('dot');
+            if (n > totalSlides) { exitSlideshow(); return; }
+            if (n < 1) slideIndex = 1;
             for (let i = 0; i < slides.length; i++) slides[i].classList.remove('active');
-            for (let i = 0; i < dots.length; i++) dots[i].classList.remove('active');
-            if (slides[slideIndex - 1]) slides[slideIndex - 1].classList.add('active');
-            if (dots[slideIndex - 1]) dots[slideIndex - 1].classList.add('active');
+            slides[slideIndex - 1].classList.add('active');
         }
 
+        function changeSlide(n) { slideIndex += n; showSlides(slideIndex); }
+
         function exitSlideshow() {
-            clearInterval(slideTimer);
             document.getElementById('fullscreenSlideshow').style.display = 'none';
-            const main = document.getElementById('mainContainer');
-            main.style.display = 'block';
+            document.getElementById('mainContainer').style.display = 'block';
             window.scrollTo(0, 0);
         }
 
-        // HIDDEN COMPARTMENT LOGIC
+        // HIDDEN COMPARTMENT & AUTO-HIDE LOGIC
         function toggleVideo(person) {
             const card = document.getElementById('card-' + person);
             const video = document.getElementById('video-' + person);
             
             if (card.classList.contains('video-active')) {
-                card.classList.remove('video-active');
-                video.pause();
+                closeCard(card, video);
             } else {
                 card.classList.add('video-active');
                 video.play().catch(() => {});
+                
+                // AUTO-CLOSE when video ends
+                video.onended = function() {
+                    closeCard(card, video);
+                };
             }
         }
 
-        window.addEventListener('load', initSlideshow);
+        function closeCard(card, video) {
+            card.classList.remove('video-active');
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        // Start slideshow timer
+        setInterval(() => {
+            if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
+                changeSlide(1);
+            }
+        }, 5000);
     </script>
 </body>
 </html>
