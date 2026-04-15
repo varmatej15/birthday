@@ -23,7 +23,6 @@
             min-height: 100vh;
         }
 
-        /* [CONTAINER] - Appears after slides finish */
         .main-container {
             width: 100%;
             max-width: 800px;
@@ -34,7 +33,6 @@
             display: none; 
         }
 
-        /* [SLIDESHOW] - Full screen section */
         .slideshow-section {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -50,26 +48,38 @@
 
         .slide.active { display: flex; animation: fadeIn 0.8s; }
 
-        /* [SLIDE 1] - Welcome */
         .slide.welcome-slide { background: linear-gradient(135deg, var(--primary-green), #27ae60); }
         .welcome-content { text-align: center; color: white; }
         .welcome-content h1 { font-family: 'Caveat', cursive; font-size: 5rem; }
 
-        /* [SLIDES 2-7] - Photo Wrappers */
         .slide-image-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        /* [TEXT BOX] - Positioning text at the top */
+        /* [FIXED] AUTO-ADJUSTING TEXT BOX */
         .slide-text-top {
             position: absolute;
             top: 0; width: 100%; background: rgba(0,0,0,0.6);
-            color: white; text-align: center; padding: 20px; min-height: 100px;
+            color: white; text-align: center; padding: 15px 10px; min-height: 90px;
             display: flex; flex-direction: column; justify-content: center;
             z-index: 1005;
+            overflow: hidden;
         }
-        .slide-text-top h2 { font-family: 'Caveat', cursive; font-size: 2.5rem; }
 
-        /* [BUTTONS] - Navigation */
+        /* [FIXED] Heading stays in one line and scales with screen width */
+        .slide-text-top h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 7vw; /* Adjusts based on screen width */
+            white-space: nowrap; /* Prevents wrapping to second line */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (min-width: 800px) {
+            .slide-text-top h2 { font-size: 2.5rem; } /* Caps size for desktop */
+        }
+
+        .slide-text-top p { font-size: 1rem; opacity: 0.9; }
+
         .prev, .next {
             cursor: pointer;
             position: fixed; top: 50%; padding: 20px;
@@ -79,7 +89,6 @@
         .next { right: 0; }
         .prev { left: 0; }
 
-        /* [DOTS] - Progress Indicators */
         .dots-container {
             position: absolute;
             bottom: 40px; left: 50%; transform: translateX(-50%);
@@ -92,7 +101,6 @@
         }
         .dot.active { background-color: var(--primary-green); width: 30px; border-radius: 6px; }
 
-        /* [POST-SLIDESHOW] - Main Page Content */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
             color: white; padding: 60px 20px; text-align: center;
@@ -137,35 +145,35 @@
             <div class="slide">
                 <div class="slide-text-top">
                     <h2>🎉 Pure Magic & Joy 🎉</h2>
-                    <p>Your energy has a way of making every moment feel a little more special.</p>
+                    <p>Your energy makes every moment feel special.</p>
                 </div>
                 <div class="slide-image-wrapper"><img src="photo2.jpg" alt="2"></div>
             </div>
             <div class="slide">
                 <div class="slide-text-top">
                     <h2>💖 One in a Million 💖</h2>
-                    <p>Grateful for the laughs, the memories, and the person who is always there.</p>
+                    <p>Grateful for the laughs and the memories.</p>
                 </div>
                 <div class="slide-image-wrapper"><img src="photo3.jpg" alt="3"></div>
             </div>
             <div class="slide">
                 <div class="slide-text-top">
                     <h2>🌟 Keep Reaching Higher 🌟</h2>
-                    <p>You have the strength to achieve everything you’ve ever dreamed of.</p>
+                    <p>You have the strength to achieve your dreams.</p>
                 </div>
                 <div class="slide-image-wrapper"><img src="photo4.jpg" alt="4"></div>
             </div>
             <div class="slide">
                 <div class="slide-text-top">
                     <h2>🚀 The Best is Yet to Come 🚀</h2>
-                    <p>Here is to a new year of adventures, growth, and endless happiness.</p>
+                    <p>Here is to new adventures and growth.</p>
                 </div>
                 <div class="slide-image-wrapper"><img src="photo5.jpg" alt="5"></div>
             </div>
             <div class="slide">
                 <div class="slide-text-top">
                     <h2>🎂 To an Unforgettable Year 🎂</h2>
-                    <p>May your heart be as full as your cake is sweet. Enjoy your day!</p>
+                    <p>Enjoy your day! You deserve the world.</p>
                 </div>
                 <div class="slide-image-wrapper"><img src="photo6.jpg" alt="6"></div>
             </div>
@@ -264,11 +272,12 @@
             video.currentTime = 0;
         }
 
+        /* [FIXED] AUTO-SLIDE TIMER SET TO 7 SECONDS */
         setInterval(() => {
             if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
                 changeSlide(1);
             }
-        }, 8000); 
+        }, 7000); 
     </script>
 </body>
 </html>
