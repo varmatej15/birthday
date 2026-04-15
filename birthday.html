@@ -23,9 +23,10 @@
             min-height: 100vh;
         }
 
+        /* --- CONTAINER: Fluid width for different screens --- */
         .main-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px; /* Slightly wider for tablets/laptops */
             background: white;
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -33,6 +34,7 @@
             display: none; 
         }
 
+        /* --- SLIDESHOW SECTION --- */
         .slideshow-section {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -47,51 +49,38 @@
         }
 
         .slide.active { display: flex; animation: fadeIn 0.8s; }
-
         .slide.welcome-slide { background: linear-gradient(135deg, var(--primary-green), #27ae60); }
         .welcome-content { text-align: center; color: white; }
-        .welcome-content h1 { font-family: 'Caveat', cursive; font-size: 5rem; }
+        .welcome-content h1 { font-family: 'Caveat', cursive; font-size: 10vw; } /* Responsive font */
 
         .slide-image-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-        /* [FIXED] AUTO-ADJUSTING TEXT BOX */
         .slide-text-top {
             position: absolute;
             top: 0; width: 100%; background: rgba(0,0,0,0.6);
             color: white; text-align: center; padding: 15px 10px; min-height: 90px;
             display: flex; flex-direction: column; justify-content: center;
-            z-index: 1005;
-            overflow: hidden;
+            z-index: 1005; overflow: hidden;
         }
 
-        /* [FIXED] Heading stays in one line and scales with screen width */
-        .slide-text-top h2 { 
-            font-family: 'Caveat', cursive; 
-            font-size: 7vw; /* Adjusts based on screen width */
-            white-space: nowrap; /* Prevents wrapping to second line */
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .slide-text-top h2 { font-family: 'Caveat', cursive; font-size: 6vw; white-space: nowrap; }
+
+        @media (min-width: 800px) { 
+            .slide-text-top h2 { font-size: 2.5rem; } 
+            .welcome-content h1 { font-size: 5rem; }
         }
 
-        @media (min-width: 800px) {
-            .slide-text-top h2 { font-size: 2.5rem; } /* Caps size for desktop */
-        }
-
-        .slide-text-top p { font-size: 1rem; opacity: 0.9; }
-
+        /* Navigation Arrows */
         .prev, .next {
-            cursor: pointer;
-            position: fixed; top: 50%; padding: 20px;
+            cursor: pointer; position: fixed; top: 50%; padding: 20px;
             color: white; background: rgba(0,0,0,0.3); font-size: 28px; z-index: 1020;
             border: none; transform: translateY(-50%);
         }
-        .next { right: 0; }
-        .prev { left: 0; }
+        .next { right: 0; } .prev { left: 0; }
 
         .dots-container {
-            position: absolute;
-            bottom: 40px; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
             z-index: 1020; display: flex; gap: 12px;
         }
         .dot {
@@ -101,11 +90,33 @@
         }
         .dot.active { background-color: var(--primary-green); width: 30px; border-radius: 6px; }
 
+        /* --- MAIN CONTENT & VIDEO FIXES --- */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-green), #27ae60);
             color: white; padding: 60px 20px; text-align: center;
         }
-        .hero-section h1 { font-family: 'Caveat', cursive; font-size: 4rem; }
+        .hero-section h1 { font-family: 'Caveat', cursive; font-size: 12vw; }
+        @media (min-width: 800px) { .hero-section h1 { font-size: 4.5rem; } }
+
+        .media-gallery { 
+            padding: 20px; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* [RESPONSIVE FIX] Adjusts to any device width */
+        .main-video { 
+            width: 100%; 
+            height: auto; /* Scales height based on device width */
+            max-height: 70vh; /* Prevents video from being too tall on laptops */
+            border-radius: 15px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            background: #000;
+        }
+
+        .wishes-section { padding: 30px 20px; background: #fffafa; }
+        .wishes-section h2 { font-family: 'Caveat', cursive; font-size: 2.5rem; text-align: center; color: var(--primary-green); }
 
         .wish-card {
             background: white; border-radius: 15px; margin-bottom: 20px;
@@ -136,45 +147,27 @@
                 <div class="welcome-content"><h1>Welcome 👋</h1><p>Bhavani</p></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>✨ A Day to Shine ✨</h2>
-                    <p>Today is all about celebrating the incredible person you are.</p>
-                </div>
+                <div class="slide-text-top"><h2>✨ A Day to Shine ✨</h2><p>Celebrating the incredible person you are.</p></div>
                 <div class="slide-image-wrapper"><img src="photo1.jpg" alt="1"></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🎉 Pure Magic & Joy 🎉</h2>
-                    <p>Your energy makes every moment feel special.</p>
-                </div>
+                <div class="slide-text-top"><h2>🎉 Pure Magic & Joy 🎉</h2><p>Your energy makes every moment special.</p></div>
                 <div class="slide-image-wrapper"><img src="photo2.jpg" alt="2"></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>💖 One in a Million 💖</h2>
-                    <p>Grateful for the laughs and the memories.</p>
-                </div>
+                <div class="slide-text-top"><h2>💖 One in a Million 💖</h2><p>Grateful for the laughs and memories.</p></div>
                 <div class="slide-image-wrapper"><img src="photo3.jpg" alt="3"></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🌟 Keep Reaching Higher 🌟</h2>
-                    <p>You have the strength to achieve your dreams.</p>
-                </div>
+                <div class="slide-text-top"><h2>🌟 Keep Reaching Higher 🌟</h2><p>Achieve everything you've dreamed of.</p></div>
                 <div class="slide-image-wrapper"><img src="photo4.jpg" alt="4"></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🚀 The Best is Yet to Come 🚀</h2>
-                    <p>Here is to new adventures and growth.</p>
-                </div>
+                <div class="slide-text-top"><h2>🚀 The Best is Yet to Come 🚀</h2><p>Here's to new adventures and growth.</p></div>
                 <div class="slide-image-wrapper"><img src="photo5.jpg" alt="5"></div>
             </div>
             <div class="slide">
-                <div class="slide-text-top">
-                    <h2>🎂 To an Unforgettable Year 🎂</h2>
-                    <p>Enjoy your day! You deserve the world.</p>
-                </div>
+                <div class="slide-text-top"><h2>🎂 Unforgettable Year 🎂</h2><p>Enjoy your day! You deserve the world.</p></div>
                 <div class="slide-image-wrapper"><img src="photo6.jpg" alt="6"></div>
             </div>
 
@@ -199,7 +192,9 @@
             <p>A special day for a special person</p>
         </div>
         <div class="media-gallery">
-            <video class="main-video" controls><source src="video.mp4" type="video/mp4"></video>
+            <video id="mainBirthdayVideo" class="main-video" controls>
+                <source src="video.mp4" type="video/mp4">
+            </video>
         </div>
         <div class="wishes-section">
             <h2>Warm Wishes</h2>
@@ -254,12 +249,19 @@
             window.scrollTo(0, 0);
         }
 
+        /* [FIXED] Smart Pause Logic */
         function toggleVideo(person) {
             const card = document.getElementById('card-' + person);
             const video = document.getElementById('video-' + person);
+            const mainVideo = document.getElementById('mainBirthdayVideo');
+            
             if (card.classList.contains('video-active')) {
                 closeCard(card, video);
             } else {
+                // [FIXED] Pause main video without resetting time
+                if (mainVideo && !mainVideo.paused) {
+                    mainVideo.pause();
+                }
                 card.classList.add('video-active');
                 video.play().catch(() => {});
                 video.onended = () => closeCard(card, video);
@@ -272,12 +274,12 @@
             video.currentTime = 0;
         }
 
-        /* [FIXED] AUTO-SLIDE TIMER SET TO 7 SECONDS */
+        /* [FIXED] 6-SECOND TIMER */
         setInterval(() => {
             if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
                 changeSlide(1);
             }
-        }, 7000); 
+        }, 6000); 
     </script>
 </body>
 </html>
