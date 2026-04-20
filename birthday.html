@@ -223,7 +223,7 @@
             <div class="wish-card" id="card-gemini">
                 <div class="wish-content-wrapper">
                     <div class="wish-text">
-                        ""
+                        "To a lifetime of Happiness, starting with today."
                         <br><span class="sender-name" onclick="toggleVideo('gemini')">— From Everyone </span>
                     </div>
                     <div class="wish-video-compartment">
@@ -235,62 +235,72 @@
     </div>
 
     <script>
-        let slideIndex = 1;
-        const totalSlides = 7;
+    let slideIndex = 1;
+    const totalSlides = 7;
 
-        function currentSlide(n) { slideIndex = n; showSlides(slideIndex); }
-        function changeSlide(n) { slideIndex += n; showSlides(slideIndex); }
+    function currentSlide(n) { slideIndex = n; showSlides(slideIndex); }
+    function changeSlide(n) { slideIndex += n; showSlides(slideIndex); }
 
-        function showSlides(n) {
-            const slides = document.getElementsByClassName('slide');
-            const dots = document.getElementsByClassName('dot');
-            if (n > totalSlides) { exitSlideshow(); return; }
-            if (n < 1) slideIndex = 1;
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove('active');
-                dots[i].classList.remove('active');
+    function showSlides(n) {
+        const slides = document.getElementsByClassName('slide');
+        const dots = document.getElementsByClassName('dot');
+        if (n > totalSlides) { exitSlideshow(); return; }
+        if (n < 1) slideIndex = 1;
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            dots[i].classList.remove('active');
+        }
+        slides[slideIndex - 1].classList.add('active');
+        dots[slideIndex - 1].classList.add('active');
+    }
+
+    function exitSlideshow() {
+        document.getElementById('fullscreenSlideshow').style.display = 'none';
+        document.getElementById('mainContainer').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    /* [FIXED] Smart Pause Logic */
+    function toggleVideo(person) {
+        const card = document.getElementById('card-' + person);
+        const video = document.getElementById('video-' + person);
+        const mainVideo = document.getElementById('mainBirthdayVideo');
+        
+        if (card.classList.contains('video-active')) {
+            closeCard(card, video);
+        } else {
+            // Pause main video if playing
+            if (mainVideo && !mainVideo.paused) {
+                mainVideo.pause();
             }
-            slides[slideIndex - 1].classList.add('active');
-            dots[slideIndex - 1].classList.add('active');
-        }
 
-        function exitSlideshow() {
-            document.getElementById('fullscreenSlideshow').style.display = 'none';
-            document.getElementById('mainContainer').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        /* [FIXED] Smart Pause Logic */
-        function toggleVideo(person) {
-            const card = document.getElementById('card-' + person);
-            const video = document.getElementById('video-' + person);
-            const mainVideo = document.getElementById('mainBirthdayVideo');
-            
-            if (card.classList.contains('video-active')) {
-                closeCard(card, video);
-            } else {
-                // [FIXED] Pause main video without resetting time
-                if (mainVideo && !mainVideo.paused) {
-                    mainVideo.pause();
+            // Pause all other videos dynamically
+            const allVideos = document.querySelectorAll("video");
+            allVideos.forEach(v => {
+                if (v !== video) {
+                    v.pause();
+                    v.currentTime = 0;
                 }
-                card.classList.add('video-active');
-                video.play().catch(() => {});
-                video.onended = () => closeCard(card, video);
-            }
-        }
+            });
 
-        function closeCard(card, video) {
-            card.classList.remove('video-active');
-            video.pause();
-            video.currentTime = 0;
+            card.classList.add('video-active');
+            video.play().catch(() => {});
+            video.onended = () => closeCard(card, video);
         }
+    }
 
-        /* [FIXED] 6-SECOND TIMER */
-        setInterval(() => {
-            if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
-                changeSlide(1);
-            }
-        }, 6000); 
-    </script>
+    function closeCard(card, video) {
+        card.classList.remove('video-active');
+        video.pause();
+        video.currentTime = 0;
+    }
+
+    /* [FIXED] 5.8-SECOND TIMER */
+    setInterval(() => {
+        if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
+            changeSlide(1);
+        }
+    }, 5800); 
+</script>
 </body>
 </html>
