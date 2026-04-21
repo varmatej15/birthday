@@ -150,7 +150,7 @@
 <body>
 
     <div class="slideshow-section" id="fullscreenSlideshow">
-        <audio id="slideshowMusic" src="music.mp3" preload="auto"></audio>
+        <audio id="slideshowMusic" src="music.mp3" autoplay muted preload="auto"></audio>
         <div class="slideshow-container">
             <div class="slide welcome-slide active">
                 <div class="slide-image-wrapper"><img src="photo.jpg" alt="0"></div>
@@ -326,12 +326,13 @@ function showSlides(n) {
     slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
 
-    // Start music when slideshow is visible
-    if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
-        if (slideshowMusic.paused) {
-            slideshowMusic.play().catch(() => {});
-        }
+    // 🎵 Start music when slideshow begins (only once, at the first slide)
+    if (n === 1) {
+        const music = document.getElementById("slideshowMusic");
+        music.currentTime = 0;   // start from beginning
+        music.play();
     }
+
 }
 
 function exitSlideshow() {
@@ -345,6 +346,13 @@ function exitSlideshow() {
         slideshowMusic.currentTime = 0;
     }
 }
+
+window.onload = function() {
+    const music = document.getElementById("slideshowMusic");
+    // Unmute after autoplay starts
+    music.muted = false;
+};
+
 
 
     
