@@ -39,7 +39,7 @@
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 1000; display: flex; flex-direction: column;
-        }
+        }       
 
         .slide {
             display: none;
@@ -150,6 +150,7 @@
 <body>
 
     <div class="slideshow-section" id="fullscreenSlideshow">
+        <audio id="slideshowMusic" src="music.mp3" preload="auto"></audio>
         <div class="slideshow-container">
             <div class="slide welcome-slide active">
                 <div class="slide-image-wrapper"><img src="photo.jpg" alt="0"></div>
@@ -309,6 +310,44 @@
             changeSlide(1);
         }
     }, 5800); 
+        
+    // 🎶 Slideshow Music Control
+const slideshowMusic = document.getElementById('slideshowMusic');
+
+function showSlides(n) {
+    const slides = document.getElementsByClassName('slide');
+    const dots = document.getElementsByClassName('dot');
+    if (n > totalSlides) { exitSlideshow(); return; }
+    if (n < 1) slideIndex = 1;
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
+        dots[i].classList.remove('active');
+    }
+    slides[slideIndex - 1].classList.add('active');
+    dots[slideIndex - 1].classList.add('active');
+
+    // Start music when slideshow is visible
+    if (document.getElementById('fullscreenSlideshow').style.display !== 'none') {
+        if (slideshowMusic.paused) {
+            slideshowMusic.play().catch(() => {});
+        }
+    }
+}
+
+function exitSlideshow() {
+    document.getElementById('fullscreenSlideshow').style.display = 'none';
+    document.getElementById('mainContainer').style.display = 'block';
+    window.scrollTo(0, 0);
+
+    // Stop music when exiting slideshow
+    if (!slideshowMusic.paused) {
+        slideshowMusic.pause();
+        slideshowMusic.currentTime = 0;
+    }
+}
+
+
+    
 </script>
 </body>
 </html>
